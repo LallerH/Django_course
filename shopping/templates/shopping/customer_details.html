@@ -1,0 +1,16 @@
+<h1>Customer details</h1>
+{{ customer.first_name }} {{customer.last_name}} ({{customer.id}})
+<ul>
+    <li>Age: {{ customer.age }}</li>
+
+    {% if customers.email %}
+        <li>Email: {{ customer.email }}</li>
+    {% else %}
+        <li>Email: -</li>
+    {% endif %}
+
+    {% if customers.phone_number %}
+        <li>Phone_number: {{ customer.phone_number }}</li>
+    {% else %}
+        <li>Phone_number: -</li>
+    {% endif %}

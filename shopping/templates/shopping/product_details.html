@@ -1,0 +1,16 @@
+
+<h1> {{product.product_name|title}} </h1>
+
+{{ product.product_name }} {{product.product_price}} ({{product.id}})
+<ul>
+    {% if product.is_discounted %}
+        <li>Discounted: {{ product.is_discounted }}</li>
+    {% else %}
+        <li>Discounted: n.a.</li>
+    {% endif %}
+
+    {% if product.expiry %}
+        <li>Expiry: {{ product.expiry }}</li>
+    {% else %}
+        <li>Expiry: n.a.</li>
+    {% endif %}
