@@ -1,6 +1,9 @@
+<p><a href="{% url 'customers' %}">Customers</a></p>
+
 <h1>Customer details</h1>
 {{ customer.first_name }} {{customer.last_name}} ({{customer.id}})
 <ul>
+
     <li>Age: {{ customer.age }}</li>
 
     {% if customers.email %}

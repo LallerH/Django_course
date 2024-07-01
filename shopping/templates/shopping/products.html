@@ -1,8 +1,15 @@
+<h1>Filter</h1>
+
+<form method="get">
+    {{form.as_table}}
+    <input type="submit" value="Search">
+</form>
+
 {% if products %}
-<h1>Products</h1>
+<h1>Products2</h1>
     <ul>
     {% for product in products %}
-        <li>{{ product.product_name }} {{product.product_price}}
+        <li>{{ product.product_name }}
         <a href="products/{{ product.id }}/">({{product.id}})</a></li>
     {% endfor %}
     </ul>
