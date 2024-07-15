@@ -1,6 +1,7 @@
-<p><a href="{% url 'customers' %}">Customers</a></p>
+<!-- <p><a href="{% url 'customers' %}">Customers</a></p> -->
 
-<h1>Customer details</h1>
+{% include 'shopping/header.html' with title='Customer details'%}
+
 {{ customer.first_name }} {{customer.last_name}} ({{customer.id}})
 <ul>
 

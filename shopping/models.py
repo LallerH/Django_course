@@ -30,6 +30,8 @@ class Product(models.Model):
     product_price = models.IntegerField()
     is_discounted = models.BooleanField(default=False)
     expiry = models.DateField(blank=True, null=True)
+    storage_quantity = models.IntegerField()
+    image = models.ImageField(upload_to='products/', blank=True, null=True)
     
     def __str__(self):
         return self.product_name

@@ -3,6 +3,8 @@ from django.contrib import admin
 # Register your models here.
 
 from .models import Customer, Product, Purchase, Address, PurchaseItem
+from .filters import AgeRangeFilter
+from .filters2 import PriceRangeFilter, QuantityRangeFilter
 
 class PurchaseItemInline(admin.TabularInline):
     model = PurchaseItem
@@ -19,17 +21,30 @@ class AddressInline(admin.TabularInline):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'age')
     search_fields = ('first_name', 'last_name', 'email')
-    list_filter = ('age',)
+    list_filter = (AgeRangeFilter,)
     ordering = ('first_name','last_name', 'age')
     readonly_fields = ('email',)
     inlines = [PurchaseInline, AddressInline]
 
+
+def set_discounted(modeladmin, request, queryset):
+    count = queryset.update(is_discounted=True)
+    modeladmin.message_user(request, f'Updated products: {count}')
+
+set_discounted.short_description = 'Set selected products as discounted'
+
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_name', 'product_price')
+    list_display = ('product_name', 'product_price', 'is_discounted', 'storage_quantity')
+    actions = [set_discounted]
+    actions_on_top = True
+    actions_on_bottom = False
+    list_filter = (PriceRangeFilter,QuantityRangeFilter)
 
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('purchase_date',)
     inlines = [PurchaseItemInline]
+    raw_id_fields = ('customer',)
 
 
 admin.site.register(Customer, CustomerAdmin)

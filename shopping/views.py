@@ -1,14 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Customer, Product
 from django.template import loader
 
 # Create your views here.
 
 from django.http import HttpResponse
-from .forms import CustomerForm, ProductForm
+from .forms import CustomerForm, ProductForm, CustomerRegisterForm
 
 def index(request):
-    return HttpResponse('Hello!')
+    return render(request,'shopping/index.html')
 
 def get_customers(request):
     customers = Customer.objects.all()
@@ -45,8 +45,20 @@ def get_products(request):
     context = {
         "products": products,
         "form": form,
+        "title": 'List of products'
     }
     return render(request,'shopping/products.html', context)
+
+def get_customer_details(request, customer_id):
+    try:
+        customer = Customer.objects.get(id=customer_id)
+    except Customer.DoesNotExist:
+        return HttpResponse('Customer not found!', status=404)
+
+    context = {
+        "customer": customer,
+    }
+    return render(request,'shopping/customer_details.html', context)
 
 def get_product_details(request, product_id):
     try:
@@ -59,5 +71,24 @@ def get_product_details(request, product_id):
     }
     return render(request,'shopping/product_details.html', context)
 
+def add_customer(request):
+    if request.POST:
+        form = CustomerRegisterForm(request.POST)
+        if form.is_valid():
+            #customer = Customer.objects.create(**form.cleaned_data)
+            form.save()
+            context = {
+                "form": CustomerRegisterForm(),
+                "success": True
+            }
+            # return render(request, 'shopping/customer_add.html', context)
+            return redirect('customers')
+    else:
+        form = CustomerRegisterForm()
     
+        context = {
+            "form": form
+        }
+        return render(request,'shopping/customer_add.html', context)
+  
 

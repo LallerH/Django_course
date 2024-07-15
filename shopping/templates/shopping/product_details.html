@@ -1,5 +1,7 @@
 
-<h1> {{product.product_name|title}} </h1>
+{% include 'shopping/header.html' with title='Product details' %}
+
+<h2> {{product.product_name|title}} </h2>
 
 {{ product.product_name }} {{product.product_price}} ({{product.id}})
 <ul>

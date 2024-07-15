@@ -1,0 +1,12 @@
+<h1>Shopping</h1>
+<h2>Please choose from menu!</h2>
+
+<ul>
+    <li><a href="{% url 'customers' %}">Customers</a></li>
+    <li><a href="{% url 'products' %}">Products</a></li>
+</ul>
+
+<div>
+    {% load static %}
+    <img src="{% static 'images/icons/shop.png' %}" alt="Shop">
+</div>

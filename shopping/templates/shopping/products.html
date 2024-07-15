@@ -1,4 +1,4 @@
-<h1>Filter</h1>
+{% include 'shopping/header.html' with title='Products' %}
 
 <form method="get">
     {{form.as_table}}
@@ -6,7 +6,7 @@
 </form>
 
 {% if products %}
-<h1>Products2</h1>
+    <h2>{{ title }}</h2>
     <ul>
     {% for product in products %}
         <li>{{ product.product_name }}
